@@ -1,25 +1,27 @@
 # Restaurants REST API
 
+## Requirements
+
 List all the restaurants.
 ```
-    GET /restaurants
+    GET /restaurants/
 ```
 
 Add a restaurant to the list of known restaurants.
 
 ```
-    POST /restaurants
+    POST /restaurants/
     {'name': 'Burger1'}
 ```
 
 Delete a restaurant from the list of restaurants.
 ```
-    DELETE /restaurants/<name>
+    DELETE /restaurants/<name>/
 ```
 
 Pick a random restaurant from the list of restaurants.
 ```
-    GET /restaurants/random
+    GET /restaurants/random/
 ```
 
 ## Environment
@@ -51,4 +53,54 @@ Type "help", "copyright", "credits" or "license" for more information.
 When not using you can deactivate it.
 ```
 $ deactivate
+```
+
+## Dependencies
+
+```
+$ pip install -r requirements.txt
+```
+
+## Database configuration
+
+Default values are: user=api, password=restaurantapi. Set environment variables
+with your own values.
+
+```
+$ export DB_USER=<USER>
+$ export DB_PASS=<PASS>
+```
+
+## Run API
+
+```
+$ python manage.py runserver
+```
+
+You can go to [http://localhost:8000](http://localhost:8000)
+and use the Django REST Framework API interface
+
+or use cURL:
+
+```
+$ curl -X GET http://127.0.0.1:8000/restaurants/
+```
+
+```
+curl -X POST http://127.0.0.1:8000/restaurants/ \
+  -H 'content-type: application/json' \
+  -d '{"name": "New Restaurant"}'
+```
+```
+curl -X DELETE http://127.0.0.1:8000/restaurants/New%20Restaurant/
+```
+
+```
+curl -X GET http://127.0.0.1:8000/restaurants/random/
+```
+
+## Tests
+
+```
+$ python manage.py test
 ```
