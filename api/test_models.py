@@ -19,3 +19,8 @@ class TestRestaurant(TestCase):
         new_restaurant = Restaurant(name='Worst Restaurant')
         new_restaurant.save()
         self.assertEqual(Restaurant.objects.count(), 2)
+
+    def test_delete_restaurant_decreases_count(self):
+        previous_count = Restaurant.objects.count()
+        Restaurant.objects.last().delete()
+        self.assertEqual(Restaurant.objects.count(), previous_count - 1)

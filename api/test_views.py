@@ -17,7 +17,7 @@ class TestRestaurant(TestCase):
 
         self.assertEquals(response.status_code, 200)
 
-    def test_list_restaurants(self):
+    def test_list_restaurants_returns_all_restaurants(self):
         new_restaurant = Restaurant(name='Worst Restaurant')
         new_restaurant.save()
 
@@ -38,7 +38,7 @@ class TestRestaurant(TestCase):
             ]
         )
 
-    def test_post_new_restaurant(self):
+    def test_post_new_restaurant_returns_201(self):
         params = {'name': 'Worst Restaurant'}
         response = self.client.post('/restaurants/', params, format='json')
 
@@ -52,12 +52,17 @@ class TestRestaurant(TestCase):
             }
         )
 
-    def test_delete_restaurant(self):
+    def test_delete_restaurant_returns_204(self):
         response = self.client.delete('/restaurants/Best%20Restaurant/')
 
         self.assertEquals(response.status_code, 204)
 
-    def test_random_restaurant(self):
+    def test_random_restaurant_returns_200(self):
         response = self.client.get('/restaurants/random/')
 
         self.assertEquals(response.status_code, 200)
+
+    def test_non_existant_restaurant_returns_404(self):
+        response = self.client.get('/restaurants/Blah/')
+
+        self.assertEquals(response.status_code, 404)
