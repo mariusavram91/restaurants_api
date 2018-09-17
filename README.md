@@ -7,8 +7,12 @@ List all the restaurants.
     GET /restaurants/
 ```
 
-Add a restaurant to the list of known restaurants.
+Optional parameter available to sort all the restaurants by name.
+```
+    GET /restaurants/?sort=true
+```
 
+Add a restaurant to the list of known restaurants.
 ```
     POST /restaurants/
     {'name': 'Burger1'}
