@@ -12,7 +12,8 @@ Optional parameter available to sort all the restaurants by name.
     GET /restaurants/?sort=true
 ```
 
-Add a restaurant to the list of known restaurants.
+Add a restaurant to the list of known restaurants. Names are unique and a
+message will be returned if there is duplication.
 ```
     POST /restaurants/
     {'name': 'Burger1'}

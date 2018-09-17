@@ -65,6 +65,17 @@ class TestRestaurant(TestCase):
             }
         )
 
+    def test_post_existant_restaurant_returns_400(self):
+        params = {'name': 'Best Restaurant'}
+        response = self.client.post('/restaurants/', params, format='json')
+
+        self.assertEquals(response.status_code, 400)
+        self.assertEqual(Restaurant.objects.count(), 1)
+        self.assertEquals(
+            response.json()['name'],
+            ["restaurant with this name already exists."]
+        )
+
     def test_delete_restaurant_returns_204(self):
         response = self.client.delete('/restaurants/Best%20Restaurant/')
 
