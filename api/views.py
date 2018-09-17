@@ -7,14 +7,19 @@ from .serializers import RestaurantSerializer
 
 
 class RestaurantsView(viewsets.ModelViewSet):
+    """
+    A ViewSet for listing, creating, and deleting restaurants.
+
+    ModelViewSet includes already actions like list(), create(), and delete().
+    """
+
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     lookup_field = 'name'
 
     @action(detail=False)
     def random(self, request):
-        restaurants_ids = Restaurant.objects.values_list('pk', flat=True) \
-            .order_by('pk')
+        restaurants_ids = Restaurant.objects.values_list('pk', flat=True)
         random_restaurant_id = random.choice(list(restaurants_ids))
         random_restaurant = Restaurant.objects.get(id=random_restaurant_id)
         serializer = self.get_serializer(random_restaurant, many=False)
