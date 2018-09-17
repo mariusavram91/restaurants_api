@@ -38,6 +38,19 @@ class TestRestaurant(TestCase):
             ]
         )
 
+    def test_list_with_sort_returns_all_restaurants_sorted_by_name(self):
+        new_restaurant = Restaurant(name='A Restaurant')
+        new_restaurant.save()
+        another_restaurant = Restaurant(name='Worst Restaurant')
+        another_restaurant.save()
+
+        response = self.client.get('/restaurants/?sort=true')
+
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json()[0]['name'], 'A Restaurant')
+        self.assertEquals(response.json()[1]['name'], 'Best Restaurant')
+        self.assertEquals(response.json()[2]['name'], 'Worst Restaurant')
+
     def test_post_new_restaurant_returns_201(self):
         params = {'name': 'Worst Restaurant'}
         response = self.client.post('/restaurants/', params, format='json')
